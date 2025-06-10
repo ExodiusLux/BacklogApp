@@ -33,7 +33,7 @@ class MediaInformationScreen extends StatefulWidget {
 class _MediaInformationScreenState extends State<MediaInformationScreen> {
   late int _currentEpisode;
   final databaseRef = FirebaseDatabase.instance.ref("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists");
-  String apiKey = "142bd74481cb8b85f7026d6c6028a731";
+  final apiKey = Platform.environment['TMDB_API_KEY'];
   Future<Map<String,dynamic>> getEpisodeInfoNew() async{
     Map<String, dynamic> allEpisodesData = {};
     List<dynamic> episodes = [];

@@ -15,7 +15,7 @@ class SearchMedia extends StatefulWidget {
 class _SearchMediaState extends State<SearchMedia> {
   final TextEditingController _searchController = TextEditingController();
   final databaseRef = FirebaseDatabase.instance.ref("Users/${FirebaseAuth.instance.currentUser!.uid}/Lists");
-  String apiKey = '142bd74481cb8b85f7026d6c6028a731';
+  final apiKey = Platform.environment['TMDB_API_KEY'];
   List<dynamic> _searchResults = [];
   late var data;
   late int numberOfEpisodes = 0;
@@ -23,7 +23,6 @@ class _SearchMediaState extends State<SearchMedia> {
 
 
   void _fetchSearchResults(String query) async{
-    String apiKey = '142bd74481cb8b85f7026d6c6028a731';
     String url = 'https://api.themoviedb.org/3/search/multi?api_key=$apiKey&language=en-US&page=1&query=$query&include_adult=false';
     http.Response response = await http.get(Uri.parse(url));
     if (response.statusCode == 200){
@@ -38,7 +37,6 @@ class _SearchMediaState extends State<SearchMedia> {
   }
 
   Future<Map<String, dynamic>> fetchMediaInfo(String tvID) async{
-    String apiKey = '142bd74481cb8b85f7026d6c6028a731';
     var url = Uri.https('api.themoviedb.org', '/3/tv/$tvID', {'api_key': apiKey, 'language': 'en-US'});
     var response = await http.get(url);
     if (response.statusCode == 200) {
